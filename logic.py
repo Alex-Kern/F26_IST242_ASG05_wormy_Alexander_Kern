@@ -176,8 +176,7 @@ def getScore(wormCoords):
         len(wormCoords) == 3  ->  0   (no apples eaten yet)
         len(wormCoords) == 7  ->  4   (4 apples eaten)
     """
-    # TODO: implement this function
-    pass
+    return max(0, len(wormCoords) - 3)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
