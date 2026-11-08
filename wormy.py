@@ -166,8 +166,52 @@ def runGame():
             pygame.display.update()
             FPSCLOCK.tick(FPS)
     """
-    # TODO: implement this function
-    pass
+    startx = random.randint(5, CELLWIDTH - 6)
+    starty = random.randint(5, CELLHEIGHT - 6)
+
+    wormCoords = [
+        {'x': startx,     'y': starty},
+        {'x': startx - 1, 'y': starty},
+        {'x': startx - 2, 'y': starty},
+    ]
+    direction = RIGHT
+    apple = getRandomLocation()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                terminate()
+            elif event.type == KEYDOWN:
+                if (event.key == K_LEFT or event.key == K_a) and not isOppositeDirection(direction, LEFT):
+                    direction = LEFT
+                elif (event.key == K_RIGHT or event.key == K_d) and not isOppositeDirection(direction, RIGHT):
+                    direction = RIGHT
+                elif (event.key == K_UP or event.key == K_w) and not isOppositeDirection(direction, UP):
+                    direction = UP
+                elif (event.key == K_DOWN or event.key == K_s) and not isOppositeDirection(direction, DOWN):
+                    direction = DOWN
+                elif event.key == K_ESCAPE:
+                    terminate()
+
+        wormCoords.insert(0, getNewHead(wormCoords, direction))
+
+        if isWallCollision(wormCoords):
+            return
+        if isSelfCollision(wormCoords):
+            return
+
+        if hasEatenApple(wormCoords, apple):
+            apple = getRandomLocation()
+        else:
+            del wormCoords[-1]
+
+        DISPLAYSURF.fill(BGCOLOR)
+        drawGrid(DISPLAYSURF)
+        drawWorm(DISPLAYSURF, wormCoords, direction)
+        drawApple(DISPLAYSURF, apple)
+        drawScore(DISPLAYSURF, BASICFONT, getScore(wormCoords))
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
 
 
 if __name__ == '__main__':
