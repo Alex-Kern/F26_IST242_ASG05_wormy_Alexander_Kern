@@ -118,8 +118,14 @@ def isSelfCollision(wormCoords):
                 {'x':5,'y':6}, {'x':5,'y':5}]
         isSelfCollision(worm)  ->  True   (head matches last segment)
     """
-    # TODO: implement this function
-    pass
+    if len(wormCoords) <= 1:
+        return False
+
+    head = wormCoords[HEAD]
+    for segment in wormCoords[1:]:
+        if head['x'] == segment['x'] and head['y'] == segment['y']:
+            return True
+    return False
 
 
 # ─────────────────────────────────────────────────────────────────────────────
