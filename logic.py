@@ -2,8 +2,8 @@
 Pure game-logic functions — no Pygame dependency.
 
 ================================================================================
-YOUR NAME  : ___________________________
-STUDENT ID : ___________________________
+YOUR NAME  : Alexander Kern
+STUDENT ID : apk6498
 ================================================================================
 Implement all 7 functions below. These are pure functions — they take
 arguments and return values. They do NOT use Pygame and can be tested
