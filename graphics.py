@@ -124,8 +124,27 @@ def drawApple(DISPLAYSURF, coord):
         DISPLAYSURF  : Active pygame display surface.
         coord (dict): {'x': int, 'y': int} grid position of the apple.
     """
-    # TODO: implement this function
-    pass
+    px = coord['x'] * CELLSIZE
+    py = coord['y'] * CELLSIZE
+
+    center_x = px + CELLSIZE // 2
+    center_y = py + CELLSIZE // 2
+    radius = CELLSIZE // 2 - 2
+
+    shadow_rect = pygame.Rect(px + 3, py + CELLSIZE // 2, CELLSIZE - 6, CELLSIZE // 2 - 2)
+    pygame.draw.ellipse(DISPLAYSURF, (160, 0, 0), shadow_rect)
+
+    # Main red apple circle
+    pygame.draw.circle(DISPLAYSURF, RED, (center_x, center_y), radius)
+
+    # Leaf / stem at top
+    leaf_rect = pygame.Rect(center_x - 1, py + 1, 3, 5)
+    pygame.draw.rect(DISPLAYSURF, LEAF_GREEN, leaf_rect, border_radius=1)
+
+    # Specular shine dot for gloss effect
+    shine_x = center_x - radius // 2
+    shine_y = center_y - radius // 2
+    pygame.draw.circle(DISPLAYSURF, APPLE_SHINE, (shine_x, shine_y), 2)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
